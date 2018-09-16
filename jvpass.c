@@ -4,17 +4,17 @@
 typedef struct node{
     struct node * esquerda;
     struct node * direita;
-    
     int info;
 }Node;
 
-
 Node * insereEmArvore(Node * arvore, int info){
-    Node * new = malloc(sizeof(Node));
-    new->info = info;
-
-    if(arvore == NULL || arvore->info == 0){
+    
+    if(arvore == NULL){
+        Node * new = malloc(sizeof(Node));
+        new->info = info;
         arvore = new;
+        
+        
     }else{
         if(info < arvore->info){
             arvore ->esquerda = insereEmArvore(arvore->esquerda,info);
@@ -23,8 +23,9 @@ Node * insereEmArvore(Node * arvore, int info){
             arvore->direita = insereEmArvore(arvore->direita,info);
             
         }
-        
     }
+    
+        
     return arvore;
     
 }
@@ -32,7 +33,7 @@ Node * insereEmArvore(Node * arvore, int info){
 void preOrdem(Node * node){
     
     if(node!= NULL){
-        printf("%d ",node->info);
+        printf(" %d",node->info);
         preOrdem(node->esquerda);
         preOrdem(node->direita);
     }
@@ -42,7 +43,7 @@ void inOrdem(Node * node){
     
     if(node!= NULL){
         inOrdem(node->esquerda);
-        printf("%d ",node->info);
+        printf(" %d",node->info);
         inOrdem(node->direita);
     }
 }
@@ -52,7 +53,7 @@ void posOrdem(Node * node){
     if(node!= NULL){
         posOrdem(node->esquerda);
         posOrdem(node->direita);
-        printf("%d ",node->info);
+        printf(" %d",node->info);
     }
       
 }
@@ -60,29 +61,37 @@ void posOrdem(Node * node){
 int main(){
     int c;
     scanf("%d",&c);
-    Node * arvore = malloc(sizeof(Node));
+    
+
+    
+
     int i;
     for(i=1;i<=c;i++){
-        printf("Case %d:\n",i);
+        
+        Node * arvore = NULL;
         
         int n;
         scanf("%d",&n);
-        while(n--){
+        int j;
+        for(j=1;j<=n;j++){
             int info;
             scanf("%d",&info);
             arvore = insereEmArvore(arvore,info);
             
+            
         }
-        printf("Pre.: ");
+        
+        printf("Case %d:\n",i);
+        printf("Pre.:");
         preOrdem(arvore);
         printf("\n");
-        printf("In..: ");
+        printf("In..:");
         inOrdem(arvore);
         printf("\n");
-        printf("Post: ");
+        printf("Post:");
         posOrdem(arvore);
-        printf("\n");
+        printf("\n\n");
         
     }
-    
+    return 0;
 }
